@@ -24,12 +24,16 @@ class ChunksizedGenerateFeatures():
     from keras.preprocessing import image
     import tensorflow.compat.v1 as tf
     tf.disable_v2_behavior()
-    img = image.load_img(img_path, target_size=(224, 224))
-    img_data = image.img_to_array(img)
-    img_data = np.expand_dims(img_data, axis=0)
-    img_data = preprocess_input(img_data)
-    vgg16_feature = self.model.predict(img_data)
-    return vgg16_feature
+    try:
+      img = image.load_img(img_path, target_size=(224, 224))
+      img_data = image.img_to_array(img)
+      img_data = np.expand_dims(img_data, axis=0)
+      img_data = preprocess_input(img_data)
+      vgg16_feature = self.model.predict(img_data)
+      return vgg16_feature
+    except:
+      return None
+    
 
   def run(self,chunkID):
     png_files = self.chunks[chunkID]
@@ -42,6 +46,8 @@ class ChunksizedGenerateFeatures():
       img_path = '{}/{}'.format(self.ptoi_folder_path,f)
       try:
         feature = self.get_feature_from_image(img_path)
+        if not feature:
+            continue
         rename = f.replace('.png','.feat')
         label = f.split('-')[0]
         with open(save_path,'wb') as fw:
