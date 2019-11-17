@@ -2,10 +2,15 @@ import os
 import numpy as np
 from tqdm import tqdm
 import pickle
+import warnings
+
 
 class ChunksizedGenerateFeatures():
   def __init__(self,chunksize=3000):
     from keras.applications.vgg16 import VGG16
+    import tensorflow.compat.v1 as tf
+    warnings.filterwarnings("ignore")
+    tf.disable_v2_behavior()
     self.chunksize = chunksize
     self.ptoi_folder_path = '/content/drive/Shared drives/AIGroup/Points_to_Images'
     self.itof_folder_path = '/content/drive/Shared drives/AIGroup/Images_to_Features'
@@ -17,6 +22,8 @@ class ChunksizedGenerateFeatures():
     # img_path = '/content/drive/Shared drives/AIGroup/Points_to_Images/The Eiffel Tower-0.png'
     from keras.applications.vgg16 import preprocess_input
     from keras.preprocessing import image
+    import tensorflow.compat.v1 as tf
+    tf.disable_v2_behavior()
     img = image.load_img(img_path, target_size=(224, 224))
     img_data = image.img_to_array(img)
     img_data = np.expand_dims(img_data, axis=0)
