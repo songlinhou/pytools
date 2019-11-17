@@ -40,12 +40,15 @@ class ChunksizedGenerateFeatures():
       if os.path.exists(save_path):
         continue
       img_path = '{}/{}'.format(self.ptoi_folder_path,f)
-      feature = self.get_feature_from_image(img_path)
-      rename = f.replace('.png','.feat')
-      label = f.split('-')[0]
-      with open(save_path,'wb') as fw:
-        obj = {'label':label,'feature':feature}
-        pickle.dump(obj,fw)
+      try:
+        feature = self.get_feature_from_image(img_path)
+        rename = f.replace('.png','.feat')
+        label = f.split('-')[0]
+        with open(save_path,'wb') as fw:
+            obj = {'label':label,'feature':feature}
+            pickle.dump(obj,fw)
+      except:
+        pass
 
   def __chunks__(self,l, n):
     """Yield successive n-sized chunks from l."""
