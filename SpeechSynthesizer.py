@@ -1,5 +1,5 @@
 class SpeechSynthesizer:
-    def speak(self,text,language="en",autoplay=True):
+    def __init__(self):
         from cross_platform import in_which_env,try_import
         # Import the required module for text  
         # to speech conversion
@@ -8,8 +8,7 @@ class SpeechSynthesizer:
             from gtts import gTTS 
         except:
             try_import("gtts")
-        from gtts import gTTS
-            
+
         runtime = in_which_env()
 
         if runtime == "python":
@@ -18,7 +17,14 @@ class SpeechSynthesizer:
             except:
                 try_import("vlc")
             import vlc
+        
 
+    def available_langs(self):
+        from gtts.lang import tts_langs
+        return tts_langs()
+
+    def speak(self,text,language="en",autoplay=True):
+        from gtts import gTTS
         import os 
             
         # The text that you want to convert to audio 
