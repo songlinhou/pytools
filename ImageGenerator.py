@@ -25,7 +25,7 @@ class ImageGenerator:
         fields = ["countrycode","drawing","word"]
         data = pd.read_csv('/content/drive/Shared drives/AIGroup/FromGCP/train_simplified/{}'.format(file),skipinitialspace=True,usecols=fields)
         data = pd.DataFrame(data)
-        data = data.head(1000)
+        # data = data.head(1000)
 
         raw_images = []
 
