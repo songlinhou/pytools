@@ -54,6 +54,7 @@ class SpeechSynthesizer:
             from IPython.display import Audio
             return Audio(filename=file_to_save,autoplay=autoplay)
 
+
 if __name__ == "__main__":
     ss = SpeechSynthesizer()
     ss.speak("hello there")
